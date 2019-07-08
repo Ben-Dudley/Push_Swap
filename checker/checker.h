@@ -1,0 +1,7 @@
+
+#ifndef PUSH_SWAP_CHECKER_H
+#define PUSH_SWAP_CHECKER_H
+
+
+
+#endif //PUSH_SWAP_CHECKER_H
