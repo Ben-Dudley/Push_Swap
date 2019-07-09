@@ -2,49 +2,65 @@
 // Created by Ben Dudley on 2019-07-08.
 //
 
-int		ft_atoi(const char *str)
-{
-	long	i;
-	long	off;
-	int		flag;
-	long	lim;
+#include "push_swap.h"
 
-	i = 0;
+static void	error()
+{
+	write(1, "Error\n", 5);
+	exit(1);
+}
+
+static int 	put_number(char *str)
+{
+	int number;
+	int flag;
+	int	off;
+	int	lim;
+
+	number = 0;
 	flag = 1;
-	while (*str == '\n' || *str == '\t' || *str == ' '
-		   || *str == '\f' || *str == '\v' || *str == '\r')
-		str++;
 	if (*str == '-')
-		flag = -1;
-	off = flag == 1 ? INT_MAX : INT_MIN;
-	lim = -(off % 10);
-	off /= flag * 10;
-	if (*str == '+' || *str == '-')
-		str++;
-	while (*str >= '0' && *str <= '9')
 	{
-		if (i * flag > off || (flag * i == off && (*str - '0') > lim))
-			return (0);
-		i = i * 10 + flag * (*str - '0');
+		flag = -1;
 		str++;
 	}
-	if (*str != '/0')
-		i = 0;
-	return (i);
+	off = flag == 1 ? INT_MAX : INT_MIN;
+	lim = flag*(off % 10);
+	off /= flag * 10;
+	while (*str != '\0')
+	{
+		if (*str > '9' || *str < '0' || number * flag > off || (flag * number == off && (*str - '0') > lim))
+				error();
+		number = number * 10 + flag * (*str - '0');
+		str++;
+	}
+	return (number);
 }
 
 int main(int argc, char *argv[])
 {
-	long num;
+	int num;
 	int i;
+	t_stack *a;
+	t_stack *b;
 
+	b = NULL;
+	a = NULL;
 	if (argc > 1)
 	{
 		i = 1;
-		while (i <= argc - 1)
+		while (i < argc)
 		{
-			num = number(argv[i]);
-			if ((num == 0 && *argv[i] != '0') || num > INT_MAX || num < INT_MIN)
+			num = put_number(argv[i]);
+			if (exist(b, num))
+				error();
+			push(&b, num);
+			i++;
+		}
+		while (b != NULL)
+		{
+			push(&a, b->number);
+			pop(&b);
 		}
 
 	}

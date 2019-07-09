@@ -5,7 +5,10 @@
 #ifndef PUSH_SWAP_PUSH_SWAP_H
 #define PUSH_SWAP_PUSH_SWAP_H
 
-#include "commands.h"
+#include "stack.h"
 #include "limits.h"
+#include "unistd.h"
+
+void	sort(t_stack **a, t_stack **b)
 
 #endif //PUSH_SWAP_PUSH_SWAP_H

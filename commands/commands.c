@@ -2,7 +2,7 @@
 // Created by Ben Dudley on 2019-07-08.
 //
 
-#include "commands.h"
+#include "stack.h"
 
 void	command_s(t_stack *a)
 {
