@@ -37,6 +37,15 @@ static int 	put_number(char *str)
 	return (number);
 }
 
+static		int is_sorted(t_stack *a)
+{
+	while (a->number < a->next->number)
+		a = a->next;
+	if (a->next == NULL)
+		return  (0);
+	return (1);
+}
+
 int main(int argc, char *argv[])
 {
 	int num;
@@ -61,6 +70,10 @@ int main(int argc, char *argv[])
 		{
 			push(&a, b->number);
 			pop(&b);
+		}
+		while (is_sorted(a) || b != NULL)
+		{
+			sort_a(&a, &b);
 		}
 
 	}

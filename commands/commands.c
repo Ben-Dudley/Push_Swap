@@ -18,7 +18,7 @@ void	command_p(t_stack **a, t_stack **b)
 {
 	t_stack *c;
 
-	if (b != NULL)
+	if (*b != NULL)
 	{
 		c = *b;
 		*b = (*b)->next;
@@ -36,15 +36,19 @@ void	command_r(t_stack **a)
 		ptr = ptr->next;
 	ptr->next = *a;
 	*a = (*a)->next;
+	ptr->next->next = NULL;
 }
 
 void	command_rr(t_stack **a)
 {
 	t_stack *ptr;
+	t_stack *p;
 
 	ptr = *a;
-	while (ptr->next != NULL)
+	while (ptr->next->next != NULL)
 		ptr = ptr->next;
-	ptr->next = *a;
-	*a = (*a)->next;
+	p = ptr->next;
+	ptr->next = NULL;
+	p->next = *a;
+	*a = p;
 }
