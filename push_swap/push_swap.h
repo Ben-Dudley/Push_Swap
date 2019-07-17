@@ -1,16 +1,22 @@
-//
-// Created by Ben Dudley on 2019-07-08.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/17 22:20:36 by bdudley           #+#    #+#             */
+/*   Updated: 2019/07/17 22:32:58 by bdudley          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PUSH_SWAP_PUSH_SWAP_H
-#define PUSH_SWAP_PUSH_SWAP_H
+# define PUSH_SWAP_PUSH_SWAP_H
 
-#include "stack.h"
-#include <limits.h>
-#include <unistd.h>
+# include "stack.h"
 
-int		get_last_element(t_stack *a);
-void	sort_a(t_stack **a, t_stack **b);
-void	sort_b(t_stack **a, t_stack **b);
+void	sort(t_stack **a, t_stack **b, int count);
+void	small_sort(t_stack **a, t_stack **b, int count_a, int count_b);
+int		get_element(t_stack *a, int count);
 
-#endif //PUSH_SWAP_PUSH_SWAP_H
+#endif

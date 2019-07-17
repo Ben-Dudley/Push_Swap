@@ -1,86 +1,177 @@
-//
-// Created by Ben Dudley on 2019-07-09.
-//
-
-
-//sort - обработка ошибок на пустой стек
-//объединение таких команд, как sa sb в ss
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/17 22:22:48 by bdudley           #+#    #+#             */
+/*   Updated: 2019/07/17 23:09:06 by bdudley          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		get_last_element(t_stack *a)
+int		get_element(t_stack *a, int count)
 {
-	while (a->next != NULL)
+	int	i;
+
+	i = 0;
+	while (i++ < count)
 		a = a->next;
 	return (a->number);
 }
 
-void	sort_a(t_stack **a, t_stack **b)
+void	print_stack(t_stack *a, t_stack *b)
 {
-	int last;
-	int	current;
-	int	following;
-	int	last_b;
-
-	if (*a == NULL || (*a)->next == NULL)
-		return ;
-	current = (*a)->number;
-	following = (*a)->next->number;
-	last = get_last_element(*a);
-	if (*b != NULL) {
-		last_b = get_last_element(*b);
-		while ((last_b < current && last_b > last) || (last_b > current && last > last_b)) {
-			command_p(a, b);
-			write(1, "pa\n", 3);
+	if (a)
+	{
+		printf("Stack a:");
+		while (a->next)
+		{
+			printf(" %d", a->number);
+			a = a->next;
 		}
-	}
-	if (current > following && current > last)
-	{
-		command_s(*a);
-		write(1, "sa\n", 3);
-	}
-	else if (current < last && current < following)
-	{
-		command_p(b, a);
-		write(1, "pb\n", 3);
-		sort_b(a, b);
-	}
-	else if (current > following)
-	{
-		command_r(a);
-		write(1, "ra\n", 3);
+		printf(" %d\n", a->number);
+
 	}
 	else
+		printf("Stack a = NULL\n");
+	if (b)
 	{
-		command_rr(a);
-		write(1, "rra\n", 4);
+		printf("Stack b:");
+		while (b->next)
+		{
+			printf(" %d", b->number);
+			b = b->next;
+		}
+		printf(" %d\n", b->number);
+
+	}
+	else
+		printf("Stack b = NULL\n");
+}
+
+/**
+ * TODO:
+ * Оттестить функцию на всех значениях для 5 элементов(проверить, что везде меньше 12 инструкций
+ * Посмотреть и попробовать реализовать метод полного перебора(11 инструкций как система счисления) и все варианты
+ * Функция содержит 6 переменных
+ * Функция содержит больше 30 строк
+ */
+void	small_sort(t_stack **a, t_stack **b, int count_a, int count_b)
+{
+	int e_current;
+	int	e_last;
+	int e_following;
+	int merger;
+
+	merger = 0;
+	while (is_sorted(*a) || count_b != 0)
+	{
+		//print_stack(*a, *b);
+		e_current = (*a)->number;
+		e_last = get_element(*a, count_a);
+		e_following = (*a)->next->number;
+		if (!is_sorted(*a))
+		{
+			command_p(a, b);
+			count_b--;
+			count_a++;
+			printf("pa\n");
+		}
+		else if (e_current < e_last && e_current < e_following && count_a >= 3)
+		{
+			command_p(b, a);
+			count_a--;
+			count_b++;
+			merger = (count_b > 1 && (*b)->number < (*b)->next->number) ? 1 : 0;
+			printf("pb\n");
+		}
+		else if (e_current > e_last && e_current > e_following)
+		{
+			if (merger)
+			{
+				command_r(a);
+				command_r(b);
+				merger = 0;
+				printf("rr\n");
+			}
+			else {
+				command_r(a);
+				printf("ra\n");
+			}
+		}
+		else if ((e_current > e_last && e_current < e_following) || (e_current < e_last && e_current > e_following))
+		{
+			if (merger)
+			{
+				command_s(*a);
+				command_s(*b);
+				merger = 0;
+				printf("ss\n");
+			}
+			else {
+				command_s(*a);
+				printf("sa\n");
+			}
+
+		}
+		else
+		{
+			command_rr(a);
+			printf("rra\n");
+		}
 	}
 }
 
-void	sort_b(t_stack **a, t_stack **b)
+int		get_pivot(t_stack *a, int count)
 {
-	t_stack *last;
-	t_stack *current;
-	t_stack *following;
+	int e_medium;
+	int e_last;
+	int	e_first;
 
-	if (*b == NULL || (*b)->next == NULL)
-		return ;
-	current = *b;
-	following = (*b)->next;
-	last = get_last_element(*b);
-	if (current < following && current < last)
+	e_first = a->number;
+	e_last = get_element(a, count);
+	e_medium = get_element(a, count / 2);
+	if (e_first > e_last)
 	{
-		command_s(*b);
-		write(1, "sb\n", 3);
+		if (e_first < e_medium)
+			return (e_first);
+		return (e_last > e_medium ? e_last : e_medium);
 	}
-	else if (current < following && current > last)
+	if (e_last < e_medium)
+		return (e_last);
+	return (e_first > e_medium ? e_first : e_medium);
+}
+
+/**
+ * TODO:
+ * Реализация быстрой сортировки
+ */
+void	sort(t_stack **a, t_stack **b, int count)
+{
+	int		i;
+	int		pivot;
+	t_stack *ptr;
+
+	pivot = get_pivot(*a, count);
+	printf("pivot = %d\n", pivot);
+	print_stack(*a, *b);
+	ptr = *a;
+	i = 0;
+	while (i <= count)
 	{
-		command_r(b);
-		write(1, "rb\n", 3);
+		if ((ptr + i)->number > pivot) {
+			command_p(b, a);
+			printf("pb\n");
+		}
+		else
+		{
+			command_r(a);
+			printf("ra\n");
+		}
+		i++;
 	}
-	else if (current > following && last > current)
-	{
-		command_rr(b);
-		write(1, "rrb\n", 4);
-	}
+	print_stack(*a, *b);
 }

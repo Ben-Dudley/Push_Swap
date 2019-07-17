@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/17 22:16:30 by bdudley           #+#    #+#             */
+/*   Updated: 2019/07/17 22:29:57 by bdudley          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "stack.h"
 
 void	push(t_stack **a, int number)
@@ -14,13 +26,14 @@ void	pop(t_stack **a)
 {
 	t_stack *b;
 
-	if (*a != NULL) {
+	if (*a != NULL)
+	{
 		b = *a;
 		if ((*a)->next != NULL)
 			*a = (*a)->next;
 		else
 			*a = NULL;
-		free (b);
+		free(b);
 	}
 }
 
@@ -34,4 +47,3 @@ int		exist(t_stack *a, int number)
 	}
 	return (0);
 }
-
