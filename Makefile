@@ -6,36 +6,41 @@
 #    By: bdudley <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 23:17:28 by bdudley           #+#    #+#              #
-#    Updated: 2019/07/18 16:03:07 by bdudley          ###   ########.fr        #
+#    Updated: 2019/07/18 18:07:55 by bdudley          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_P = push_swap
 NAME_C = checker
 FLAGS = -Wall -Wextra -Werror
-INC = inc/*
-SRCS = src/*
+INC = ./inc
+INC_2 = ./libft
+SRCS = ./src/commands.c ./src/helper.c ./src/stack.c
+SRCS_P = ./src/push_swap.c ./src/sort.c
+SRCS_C = ./src/checker.c ./src/get_next_line.c
 OBJS = $(SRCS:.c=.o)
-LIB = ./lib/libft/libft.a
+OBJS_P = $(SRCS_P:.c=.o)
+OBJS_C = $(SRCS_C:.c=.o)
+LIB = ./libft/libft.a
 
-all: $(NAME)
+all: $(NAME_P) $(NAME_C)
 
-$(NAME): $(OBJS)
-	make -C ./lib/libft
-#	gcc $(FLAGS) $(OBJS) $(LIB) -o $(NAME)
-	cp lib/libft/libft.a ./$(NAME)
-	ar rc $(NAME) $(OBJS)
-	ranlib $(NAME)
+$(NAME_P): $(OBJS) $(OBJS_P)
+	gcc $(FLAGS) $(OBJS) $(OBJS_P) $(LIB) -o $(NAME_P)
+
+$(NAME_C): $(OBJS) $(OBJS_C)
+	make -C ./libft
+	gcc $(FLAGS) $(OBJS) $(OBJS_C) $(LIB) -o $(NAME_C)
 
 %.o: %.c
-	gcc $(FLAGS) -c $< -o $@
+	gcc $(FLAGS) -c $< -o $@ -I$(INC) -I$(INC_2)
 
 clean:
-	make -C ./lib/libft clean
+	make -C ./libft clean
 	rm -f $(OBJS)
 
 fclean: clean
-	make -C ./lib/libft fclean
-	rm -f $(NAME)
+	make -C ./libft fclean
+	rm -f $(NAME_P)
 
 re: fclean all
