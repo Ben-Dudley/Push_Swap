@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:21:50 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/17 23:15:55 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/18 16:03:07 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
  * 5 function in file ?
  * Массив указателей на комманды и и скоращенный вывод с печатью
  * Вывести quicksort в отдельный файл
+ * CMake libft/Makefile (поправить Makefile в libft, пересобирается ли у меня мейк)
+ * Добавить GNL в libft
  */
 #ifndef PUSH_SWAP_STACK_H
 # define PUSH_SWAP_STACK_H
