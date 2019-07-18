@@ -6,7 +6,7 @@
 #    By: bdudley <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 23:17:28 by bdudley           #+#    #+#              #
-#    Updated: 2019/07/18 18:07:55 by bdudley          ###   ########.fr        #
+#    Updated: 2019/07/18 20:28:54 by bdudley          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIB = ./libft/libft.a
 all: $(NAME_P) $(NAME_C)
 
 $(NAME_P): $(OBJS) $(OBJS_P)
-	gcc $(FLAGS) $(OBJS) $(OBJS_P) $(LIB) -o $(NAME_P)
+	gcc $(FLAGS) $(OBJS) $(OBJS_P) -o $(NAME_P)
 
 $(NAME_C): $(OBJS) $(OBJS_C)
 	make -C ./libft

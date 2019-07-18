@@ -54,3 +54,33 @@ int		is_sorted(t_stack *a)
 		return (0);
 	return (1);
 }
+
+void	print_stack(t_stack *a, t_stack *b)
+{
+	if (a)
+	{
+		printf("Stack a:");
+		while (a->next)
+		{
+			printf(" %d", a->number);
+			a = a->next;
+		}
+		printf(" %d\n", a->number);
+
+	}
+	else
+		printf("Stack a = NULL\n");
+	if (b)
+	{
+		printf("Stack b:");
+		while (b->next)
+		{
+			printf(" %d", b->number);
+			b = b->next;
+		}
+		printf(" %d\n", b->number);
+
+	}
+	else
+		printf("Stack b = NULL\n");
+}

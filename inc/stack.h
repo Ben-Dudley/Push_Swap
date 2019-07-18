@@ -6,14 +6,13 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:21:50 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/18 16:03:07 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/18 19:42:24 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /**
  * TODO:
  * Сделать checker
- * Makefile
  * memory leaks
  * Отладка, тесты, оптимизация
  * print_stack оставить или перенести?
@@ -48,6 +47,7 @@ void				pop(t_stack **a);
 int					exist(t_stack *a, int number);
 
 int					is_sorted(t_stack *a);
+void				print_stack(t_stack *a, t_stack *b);
 int					put_number(char *str);
 void				error();
 

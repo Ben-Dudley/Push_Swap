@@ -22,36 +22,6 @@ int		get_element(t_stack *a, int count)
 	return (a->number);
 }
 
-void	print_stack(t_stack *a, t_stack *b)
-{
-	if (a)
-	{
-		printf("Stack a:");
-		while (a->next)
-		{
-			printf(" %d", a->number);
-			a = a->next;
-		}
-		printf(" %d\n", a->number);
-
-	}
-	else
-		printf("Stack a = NULL\n");
-	if (b)
-	{
-		printf("Stack b:");
-		while (b->next)
-		{
-			printf(" %d", b->number);
-			b = b->next;
-		}
-		printf(" %d\n", b->number);
-
-	}
-	else
-		printf("Stack b = NULL\n");
-}
-
 /**
  * TODO:
  * Оттестить функцию на всех значениях для 5 элементов(проверить, что везде меньше 12 инструкций
