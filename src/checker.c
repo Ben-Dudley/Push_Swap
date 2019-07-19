@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:23:25 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/18 21:10:58 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/19 15:58:29 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	check_sort(t_stack **a, t_stack **b)
 
 	while (get_next_line(0, &command) > 0)
 	{
-		if (*command == 1)
-			command++;
+	//	if (*command == 1)
+	//		command++;
 		if (ft_strcmp("ra", command) == 0)
 			command_r(a);
 		else if (ft_strcmp("rb", command) == 0)
@@ -55,7 +55,8 @@ void	check_sort(t_stack **a, t_stack **b)
 			command_s(*a);
 			command_s(*b);
 		}
-		printf("command = |%s|\n", command);
+		else
+			error();
 		print_stack(*a, *b);
 	}
 }

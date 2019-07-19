@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:22:48 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/17 23:09:06 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/19 20:32:52 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ int		get_element(t_stack *a, int count)
 
 /**
  * TODO:
- * Оттестить функцию на всех значениях для 5 элементов(проверить, что везде меньше 12 инструкций
- * Посмотреть и попробовать реализовать метод полного перебора(11 инструкций как система счисления) и все варианты
- * Функция содержит 6 переменных
  * Функция содержит больше 30 строк
  */
 void	small_sort(t_stack **a, t_stack **b, int count_a, int count_b)
@@ -35,11 +32,14 @@ void	small_sort(t_stack **a, t_stack **b, int count_a, int count_b)
 	int	e_last;
 	int e_following;
 	int merger;
+	int count;
 
 	merger = 0;
+	count = 0;
 	while (is_sorted(*a) || count_b != 0)
 	{
 		//print_stack(*a, *b);
+		count++;
 		e_current = (*a)->number;
 		e_last = get_element(*a, count_a);
 		e_following = (*a)->next->number;
@@ -93,6 +93,7 @@ void	small_sort(t_stack **a, t_stack **b, int count_a, int count_b)
 			printf("rra\n");
 		}
 	}
+	printf("count = %d\n", count);
 }
 
 int		get_pivot(t_stack *a, int count)
@@ -119,29 +120,28 @@ int		get_pivot(t_stack *a, int count)
  * TODO:
  * Реализация быстрой сортировки
  */
-void	sort(t_stack **a, t_stack **b, int count)
+void	sort(t_stack **a, t_stack **b, int *count)
 {
-	int		i;
-	int		pivot;
-	t_stack *ptr;
+	int i;
 
-	pivot = get_pivot(*a, count);
-	printf("pivot = %d\n", pivot);
-	print_stack(*a, *b);
-	ptr = *a;
 	i = 0;
-	while (i <= count)
+	while (is_sorted(*a) || b != NULL)
 	{
-		if ((ptr + i)->number > pivot) {
-			command_p(b, a);
-			printf("pb\n");
+		if (b == NULL)
+		{
+			i = 0;
+			while ()
 		}
 		else
 		{
-			command_r(a);
-			printf("ra\n");
+
 		}
-		i++;
 	}
-	print_stack(*a, *b);
 }
+
+//int i;
+//int pivot;
+//t_stack *ptr;
+//
+//pivot = get_pivot(*a, count);
+//
