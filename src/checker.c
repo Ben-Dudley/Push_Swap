@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:23:25 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/19 15:58:29 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/20 19:41:33 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ void	check_sort(t_stack **a, t_stack **b)
 			command_s(*b);
 		}
 		else
-			error();
-		print_stack(*a, *b);
+			error(a, b, NULL);
 	}
 }
 
@@ -75,9 +74,9 @@ int main(int argc, char *argv[])
 		i = 1;
 		while (i < argc)
 		{
-			num = put_number(argv[i]);
+			num = put_number(&a, argv[i]);
 			if (exist(b, num))
-				error();
+				error(&a, &b, NULL);
 			push(&b, num);
 			i++;
 		}
@@ -87,11 +86,12 @@ int main(int argc, char *argv[])
 			pop(&b);
 		}
 		check_sort(&a, &b);
-		if (!is_sorted(a) && b == NULL)
+		if (!is_sorted(a, argc - 2) && b == NULL)
 			write(1, "OK\n", 3);
 		else
 			write(1, "KO\n", 3);
-
+		delete(&a);
+		delete(&b);
 	}
 	return (0);
 }

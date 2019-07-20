@@ -6,13 +6,14 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:06:39 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/19 17:09:39 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/20 17:34:46 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdio.h>
 
 static void	ft_delete(t_list **my_list, t_list **copy)
 {

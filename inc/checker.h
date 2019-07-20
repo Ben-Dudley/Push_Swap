@@ -16,4 +16,4 @@
 # include "stack.h"
 # include "get_next_line.h"
 
-#endif //PUSH_SWAP_CHECKER_H
+#endif

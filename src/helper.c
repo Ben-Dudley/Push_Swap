@@ -6,19 +6,28 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:17:10 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/17 22:27:40 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/20 19:45:19 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stack.h"
 
-void	error(void)
+/**
+ * TODO:
+ * добавить очистку памяти и стеков
+ */
+void	error(t_stack **a, t_stack **b, int **count)
 {
-	write(1, "Error\n", 5);
+	delete(a);
+	delete(b);
+	if (count && *count)
+		free(*count);
+	//write(1, "Error\n", 6);
+	printf("Error\n");
 	exit(1);
 }
 
-int		put_number(char *str)
+int		put_number(t_stack **a, char *str)
 {
 	int	number;
 	int	flag;
@@ -39,20 +48,24 @@ int		put_number(char *str)
 	{
 		if (*str > '9' || *str < '0' || number * flag > off
 			|| (flag * number == off && (*str - '0') > lim))
-			error();
+			error(a, NULL, NULL);
 		number = number * 10 + flag * (*str - '0');
 		str++;
 	}
 	return (number);
 }
 
-int		is_sorted(t_stack *a)
-{
-	while (a->next != NULL && a->number < a->next->number)
+int		is_sorted(t_stack *a, int count) {
+	int i;
+
+	i = 0;
+	while (i++ < (count - 1))
+	{
+		if (a->next == NULL || a->number > a->next->number)
+			return (1);
 		a = a->next;
-	if (a->next == NULL)
-		return (0);
-	return (1);
+	}
+	return (0);
 }
 
 void	print_stack(t_stack *a, t_stack *b)

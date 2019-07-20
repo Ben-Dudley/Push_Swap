@@ -15,7 +15,7 @@
 
 # include "stack.h"
 
-void	sort(t_stack **a, t_stack **b, int count);
+void	sort(t_stack **a, t_stack **b, int *count);
 void	small_sort(t_stack **a, t_stack **b, int count_a, int count_b);
 int		get_element(t_stack *a, int count);
 
