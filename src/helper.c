@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:17:10 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/20 19:45:19 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/23 21:37:59 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,24 @@
 
 /**
  * TODO:
- * добавить очистку памяти и стеков
+ * добавить сюда *commands
+ * была утечка в 16 байт
  */
-void	error(t_stack **a, t_stack **b, int **count)
+void	clear(t_stack **a, t_stack **b, t_helper **help)
 {
 	delete(a);
 	delete(b);
-	if (count && *count)
-		free(*count);
-	//write(1, "Error\n", 6);
+	if (help && *help)
+	{
+		if ((*help)->count)
+			free((*help)->count);
+		*help = NULL;
+	}
+}
+
+void	error(t_stack **a, t_stack **b, t_helper **help)
+{
+	clear(a, b, help);
 	printf("Error\n");
 	exit(1);
 }
@@ -55,7 +64,8 @@ int		put_number(t_stack **a, char *str)
 	return (number);
 }
 
-int		is_sorted(t_stack *a, int count) {
+int		is_sorted(t_stack *a, int count)
+{
 	int i;
 
 	i = 0;
@@ -66,6 +76,27 @@ int		is_sorted(t_stack *a, int count) {
 		a = a->next;
 	}
 	return (0);
+}
+
+void		put_stack(int argc, char *argv[], t_stack **a, t_stack **b)
+{
+	int	i;
+	int num;
+
+	i = 1;
+	while (i < argc)
+	{
+		num = put_number(a, argv[i]);
+		if (exist(*b, num))
+			error(a, b, NULL);
+		push(b, num);
+		i++;
+	}
+	while (*b != NULL)
+	{
+		push(a, (*b)->number);
+		pop(b);
+	}
 }
 
 void	print_stack(t_stack *a, t_stack *b)
@@ -79,7 +110,6 @@ void	print_stack(t_stack *a, t_stack *b)
 			a = a->next;
 		}
 		printf(" %d\n", a->number);
-
 	}
 	else
 		printf("Stack a = NULL\n");
@@ -92,7 +122,6 @@ void	print_stack(t_stack *a, t_stack *b)
 			b = b->next;
 		}
 		printf(" %d\n", b->number);
-
 	}
 	else
 		printf("Stack b = NULL\n");

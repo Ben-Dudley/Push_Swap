@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:21:15 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/20 18:50:13 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/23 11:27:53 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	command_r(t_stack **a)
 	t_stack *ptr;
 
 	ptr = *a;
-	if (ptr && ptr->next && ptr->next->next) {
+	if (ptr && ptr->next)
+	{
 		while (ptr->next != NULL)
 			ptr = ptr->next;
 		ptr->next = *a;
@@ -55,7 +56,8 @@ void	command_rr(t_stack **a)
 	t_stack *p;
 
 	ptr = *a;
-	if (ptr &&ptr->next && ptr->next->next) {
+	if (ptr && ptr->next)
+	{
 		while (ptr->next->next != NULL)
 			ptr = ptr->next;
 		p = ptr->next;

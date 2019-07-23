@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:15:52 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/20 19:37:32 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/23 21:12:17 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		*initialize(int count)
 	mass = (int *)malloc(sizeof(int)* (count));
 	while (i < count)
 	{
-		mass[count] = 0;
+		mass[i] = 0;
 		i++;
 	}
 	mass[0] = count;
@@ -36,38 +36,28 @@ int		*initialize(int count)
  */
 int main(int argc, char *argv[])
 {
-	int 	num;
-	int 	i;
-	int		*count;
-	t_stack *a;
-	t_stack *b;
+	t_helper	*help;
+	t_stack 	*a;
+	t_stack 	*b;
+	int			count[2];
 
 	b = NULL;
 	a = NULL;
+	help = NULL;
 	if (argc > 1)
 	{
-		i = 1;
-		while (i < argc)
-		{
-			num = put_number(&a, argv[i]);
-			if (exist(b, num))
-				error(&a, &b, &count);
-			push(&b, num);
-			i++;
-		}
-		while (b != NULL)
-		{
-			push(&a, b->number);
-			pop(&b);
-		}
-		count = initialize(i - 1);
-		if (i - 1 <= 5)
-			small_sort(&a, &b, i - 2, 0);
+		put_stack(argc, argv, &a, &b);
+		help = (t_helper *)malloc(sizeof(t_helper));
+		help->count = initialize(argc - 1);
+		help->commands = NULL;
+		help->max_count = argc - 1;
+		count[0] = argc - 1;
+		count[1] = 0;
+		if (argc - 1 <= 5)
+			small_sort(&a, &b, &help, count);
 		else
-			sort(&a, &b, count);
-		free(count);
-		delete(&a);
-		delete(&b);
+			sort(&a, &b, &help);
+		clear(&a, &b, &help);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:23:25 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/20 19:41:33 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/23 20:23:43 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@
  * TODO:
  * Подумать над объединением(указатели на функции?)
  */
-void	check_sort(t_stack **a, t_stack **b)
+void		check_sort(t_stack **a, t_stack **b)
 {
 	char *command;
 
 	while (get_next_line(0, &command) > 0)
 	{
-	//	if (*command == 1)
-	//		command++;
 		if (ft_strcmp("ra", command) == 0)
 			command_r(a);
 		else if (ft_strcmp("rb", command) == 0)
@@ -60,38 +58,22 @@ void	check_sort(t_stack **a, t_stack **b)
 	}
 }
 
-int main(int argc, char *argv[])
+int			main(int argc, char *argv[])
 {
-	int num;
-	int i;
-	t_stack *a;
-	t_stack *b;
+	t_stack	*a;
+	t_stack	*b;
 
 	b = NULL;
 	a = NULL;
 	if (argc > 1)
 	{
-		i = 1;
-		while (i < argc)
-		{
-			num = put_number(&a, argv[i]);
-			if (exist(b, num))
-				error(&a, &b, NULL);
-			push(&b, num);
-			i++;
-		}
-		while (b != NULL)
-		{
-			push(&a, b->number);
-			pop(&b);
-		}
+		put_stack(argc, argv, &a, &b);
 		check_sort(&a, &b);
 		if (!is_sorted(a, argc - 2) && b == NULL)
 			write(1, "OK\n", 3);
 		else
 			write(1, "KO\n", 3);
-		delete(&a);
-		delete(&b);
+		clear(&a, &b, NULL);
 	}
 	return (0);
 }
