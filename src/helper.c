@@ -6,37 +6,60 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:17:10 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/23 21:37:59 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/26 17:30:56 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stack.h"
+#include "push_swap.h"
 
+
+void	delete_content(t_list **alst)
+{
+	if (alst == NULL || *alst == NULL)
+		return ;
+	free((*alst)->content);
+	(*alst)->content = NULL;
+	(*alst)->content_size = 0;
+	free(*alst);
+	*alst = NULL;
+}
 /**
  * TODO:
  * добавить сюда *commands
  * была утечка в 16 байт
  */
-void	clear(t_stack **a, t_stack **b, t_helper **help)
+void		clear(t_stack **a, t_stack **b, t_helper **help)
 {
+	t_list	*ptr;
+
 	delete(a);
 	delete(b);
 	if (help && *help)
 	{
+		while ((*help)->commands)
+		{
+			ptr = (*help)->commands;
+			(*help)->commands = (*help)->commands->next;
+			delete_content(&ptr);
+		}
+		(*help)->commands = NULL;
 		if ((*help)->count)
 			free((*help)->count);
+		(*help)->count = NULL;
+		free(*help);
 		*help = NULL;
+
 	}
 }
 
-void	error(t_stack **a, t_stack **b, t_helper **help)
+void		error(t_stack **a, t_stack **b, t_helper **help)
 {
 	clear(a, b, help);
 	printf("Error\n");
 	exit(1);
 }
 
-int		put_number(t_stack **a, char *str)
+int			put_number(t_stack **a, char *str)
 {
 	int	number;
 	int	flag;
@@ -64,7 +87,7 @@ int		put_number(t_stack **a, char *str)
 	return (number);
 }
 
-int		is_sorted(t_stack *a, int count)
+int			is_sorted(t_stack *a, int count)
 {
 	int i;
 
@@ -97,32 +120,4 @@ void		put_stack(int argc, char *argv[], t_stack **a, t_stack **b)
 		push(a, (*b)->number);
 		pop(b);
 	}
-}
-
-void	print_stack(t_stack *a, t_stack *b)
-{
-	if (a)
-	{
-		printf("Stack a:");
-		while (a->next)
-		{
-			printf(" %d", a->number);
-			a = a->next;
-		}
-		printf(" %d\n", a->number);
-	}
-	else
-		printf("Stack a = NULL\n");
-	if (b)
-	{
-		printf("Stack b:");
-		while (b->next)
-		{
-			printf(" %d", b->number);
-			b = b->next;
-		}
-		printf(" %d\n", b->number);
-	}
-	else
-		printf("Stack b = NULL\n");
 }

@@ -6,11 +6,11 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:16:30 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/20 19:24:29 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/26 17:26:11 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stack.h"
+#include "push_swap.h"
 
 void	push(t_stack **a, int number)
 {
@@ -54,14 +54,13 @@ void	delete(t_stack **a)
 
 	if (a && *a)
 	{
-		while ((*a)->next != NULL)
+		while ((*a) != NULL)
 		{
 			ptr = *a;
 			*a = (*a)->next;
-			ptr = NULL;
 			free(ptr);
+			ptr = NULL;
 		}
 		free(*a);
-
 	}
 }

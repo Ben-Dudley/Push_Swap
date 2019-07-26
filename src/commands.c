@@ -6,11 +6,11 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:21:15 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/23 11:27:53 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/26 13:47:02 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stack.h"
+#include "push_swap.h"
 
 void	command_s(t_stack *a)
 {
