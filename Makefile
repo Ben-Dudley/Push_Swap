@@ -16,7 +16,7 @@ FLAGS = -Wall -Wextra -Werror
 INC = ./inc
 INC_2 = ./libft
 SRCS = ./src/commands.c ./src/combine_commands.c ./src/helper.c ./src/stack.c
-SRCS_P = ./src/push_swap.c ./src/sort.c
+SRCS_P = ./src/push_swap.c ./src/sort.c ./src/quicksort.c ./src/print_commands.c
 SRCS_C = ./src/checker.c
 OBJS = $(SRCS:.c=.o)
 OBJS_P = $(SRCS_P:.c=.o)

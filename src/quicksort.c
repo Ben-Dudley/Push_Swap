@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 13:04:12 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/27 15:54:57 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/27 19:35:38 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,54 @@ int			sort_a(t_stack **a, t_stack **b, t_helper **help)
 	return (count_a);
 }
 
-void		sort(t_stack **a, t_stack **b, t_helper **help)
+int			sort_b(t_stack **a, t_stack **b, t_helper **help)
 {
-	int		copy_count;
+	int	c_count;
+	int count_b;
+	int pivot;
 
-	while ((*help)->sorted_count != (*help)->max_count)
+	pivot = get_pivot(*b, (*help)->count[(*help)->i]);
+	count_b = 0;
+	c_count = (*help)->count[(*help)->i];
+	while (c_count > 0)
 	{
-		if ((*help)->count_a < 3)
-		{
-			small_sort(a, b, help);
-			(*help)->sorted_count += 2;
-		}
+		if ((*b)->number > pivot)
+			command_p(a, b, &(*help)->commands, "pa\n\0");
 		else
 		{
-			copy_count = (*help)->count_a;
-			(*help)->count_a = (*help)->count_a - sort_a(a, b, help);
-			(*help)->count[(*help)->i] = copy_count -
-					(*help)->count[(*help)->i];
+			count_b++;
+			command_r(b, &(*help)->commands, "rb\n\0");
+		}
+		c_count--;
+	}
+	while (c_count < count_b && (*help)->i != 0)
+	{
+		c_count++;
+		command_rr(b, &(*help)->commands, "rrb\n\0");
+	}
+	return (count_b);
+}
+
+void		sort(t_stack **a, t_stack **b, t_helper **help)
+{
+	while ((*help)->sorted_count != (*help)->max_count)
+	{
+		if ((*help)->count_a == 0 && (*help)->count[(*help)->i] < 3)
+			small_sort(a, b, help);
+		else if ((*help)->count_a == 0)
+		{
+			(*help)->i = (*help)->i == 0 ? (*help)->i : (*help)->i--;
+			(*help)->count_a = (*help)->count[(*help)->i] - sort_b(a, b, help);
+			(*help)->count[(*help)->i] -= (*help)->count_a;
+			(*help)->i++;
+
+		}
+		else if ((*help)->count_a < 3)
+			small_sort(a, b, help);
+		else
+		{
+			(*help)->count[(*help)->i] = (*help)->count_a - sort_a(a, b, help);
+			(*help)->count_a -= (*help)->count[(*help)->i];
 			(*help)->i++;
 		}
 	}
