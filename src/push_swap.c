@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:15:52 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/24 17:14:49 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/27 14:51:44 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int		*initialize(int count)
 		mass[i] = 0;
 		i++;
 	}
-	mass[0] = count;
 	return (mass);
 }
 
@@ -34,12 +33,12 @@ int		*initialize(int count)
  * Применить алгоритм нахождения count для массива, через деление
  * Добавить очистку памяти массива и стека
  */
+
 int main(int argc, char *argv[])
 {
 	t_helper	*help;
-	t_stack 	*a;
-	t_stack 	*b;
-	int			count[2];
+	t_stack		*a;
+	t_stack		*b;
 
 	b = NULL;
 	a = NULL;
@@ -51,15 +50,14 @@ int main(int argc, char *argv[])
 		help->count = initialize(argc - 1);
 		help->commands = NULL;
 		help->max_count = argc - 1;
+		help->count_a = argc - 1;
+		help->sorted_count = 0;
 		help->i = 0;
-		count[0] = argc - 1;
-		count[1] = 0;
 		if (argc - 1 <= 5)
-			small_sort(&a, &b, &help, count);
+			small_sort(&a, &b, &help);
 		else
 			sort(&a, &b, &help);
 		print_command(help->commands);
-//		print_stack(a, b);
 		clear(&a, &b, &help);
 	}
 	return (0);

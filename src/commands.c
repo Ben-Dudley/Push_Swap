@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	command_s(t_stack *a)
+void	command_s(t_stack *a, t_list **commands, char *str)
 {
 	if (a != NULL && a->next != NULL)
 	{
@@ -20,9 +20,11 @@ void	command_s(t_stack *a)
 		a->next->number = a->next->number ^ a->number;
 		a->number = a->number ^ a->next->number;
 	}
+	if (str)
+		ft_lstadd_back(commands, ft_lstnew(str, 4));
 }
 
-void	command_p(t_stack **a, t_stack **b)
+void	command_p(t_stack **a, t_stack **b, t_list **commands, char *str)
 {
 	t_stack *c;
 
@@ -33,9 +35,11 @@ void	command_p(t_stack **a, t_stack **b)
 		c->next = *a;
 		*a = c;
 	}
+	if (str)
+		ft_lstadd_back(commands, ft_lstnew(str, 4));
 }
 
-void	command_r(t_stack **a)
+void	command_r(t_stack **a, t_list **commands, char *str)
 {
 	t_stack *ptr;
 
@@ -48,9 +52,11 @@ void	command_r(t_stack **a)
 		*a = (*a)->next;
 		ptr->next->next = NULL;
 	}
+	if (str)
+		ft_lstadd_back(commands, ft_lstnew(str, 4));
 }
 
-void	command_rr(t_stack **a)
+void	command_rr(t_stack **a, t_list **commands, char *str)
 {
 	t_stack *ptr;
 	t_stack *p;
@@ -65,4 +71,6 @@ void	command_rr(t_stack **a)
 		p->next = *a;
 		*a = p;
 	}
+	if (str)
+		ft_lstadd_back(commands, ft_lstnew(str, 5));
 }
