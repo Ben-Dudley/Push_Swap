@@ -12,6 +12,15 @@
 
 #include "push_swap.h"
 
+int		get_element(t_stack *a, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i++ < count - 1)
+		a = a->next;
+	return (a->number);
+}
 
 void	delete_content(t_list **alst)
 {

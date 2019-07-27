@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:15:52 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/27 14:51:44 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/27 20:52:16 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 		help->count_a = argc - 1;
 		help->sorted_count = 0;
 		help->i = 0;
-		if (argc - 1 <= 5)
+		if (argc - 1 <= 3)
 			small_sort(&a, &b, &help);
 		else
 			sort(&a, &b, &help);

@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 13:04:12 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/27 19:35:38 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/27 20:02:22 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int			sort_b(t_stack **a, t_stack **b, t_helper **help)
 
 void		sort(t_stack **a, t_stack **b, t_helper **help)
 {
-	while ((*help)->sorted_count != (*help)->max_count)
+	while (is_sorted(*a, (*help)->max_count))
 	{
-		if ((*help)->count_a == 0 && (*help)->count[(*help)->i] < 3)
+		if ((*help)->count_a == 0 && (*help)->count[(*help)->i] < 4)
 			small_sort(a, b, help);
 		else if ((*help)->count_a == 0)
 		{
@@ -82,7 +82,7 @@ void		sort(t_stack **a, t_stack **b, t_helper **help)
 			(*help)->i++;
 
 		}
-		else if ((*help)->count_a < 3)
+		else if ((*help)->count_a < 4)
 			small_sort(a, b, help);
 		else
 		{
