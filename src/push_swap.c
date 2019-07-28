@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:15:52 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/27 20:52:16 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/28 17:04:49 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		*initialize(int count)
 	int	i;
 
 	i = 0;
-	mass = (int *)malloc(sizeof(int)* (count));
+	mass = (int *)malloc(sizeof(int) * (count));
 	while (i < count)
 	{
 		mass[i] = 0;
@@ -27,14 +27,7 @@ int		*initialize(int count)
 	return (mass);
 }
 
-/**
- * TODO:
- * Разъединить 30 строк в функции
- * Применить алгоритм нахождения count для массива, через деление
- * Добавить очистку памяти массива и стека
- */
-
-int main(int argc, char *argv[])
+int		main(int argc, char *argv[])
 {
 	t_helper	*help;
 	t_stack		*a;

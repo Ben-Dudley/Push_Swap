@@ -6,67 +6,11 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:17:10 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/26 17:30:56 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/28 18:37:19 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int		get_element(t_stack *a, int count)
-{
-	int	i;
-
-	i = 0;
-	while (i++ < count - 1)
-		a = a->next;
-	return (a->number);
-}
-
-void	delete_content(t_list **alst)
-{
-	if (alst == NULL || *alst == NULL)
-		return ;
-	free((*alst)->content);
-	(*alst)->content = NULL;
-	(*alst)->content_size = 0;
-	free(*alst);
-	*alst = NULL;
-}
-/**
- * TODO:
- * добавить сюда *commands
- * была утечка в 16 байт
- */
-void		clear(t_stack **a, t_stack **b, t_helper **help)
-{
-	t_list	*ptr;
-
-	delete(a);
-	delete(b);
-	if (help && *help)
-	{
-		while ((*help)->commands)
-		{
-			ptr = (*help)->commands;
-			(*help)->commands = (*help)->commands->next;
-			delete_content(&ptr);
-		}
-		(*help)->commands = NULL;
-		if ((*help)->count)
-			free((*help)->count);
-		(*help)->count = NULL;
-		free(*help);
-		*help = NULL;
-
-	}
-}
-
-void		error(t_stack **a, t_stack **b, t_helper **help)
-{
-	clear(a, b, help);
-	printf("Error\n");
-	exit(1);
-}
 
 int			put_number(t_stack **a, char *str)
 {
@@ -96,6 +40,27 @@ int			put_number(t_stack **a, char *str)
 	return (number);
 }
 
+int			is_sorted_b(t_stack **a, t_stack **b, t_helper **help)
+{
+	t_stack		*ptr;
+	int			i;
+
+	i = 0;
+	ptr = *a;
+	while (i++ < (*help)->count[(*help)->i])
+	{
+		if (ptr->next == NULL || ptr->number < ptr->next->number)
+			return (1);
+		ptr = ptr->next;
+	}
+	(*help)->sorted_count += (*help)->count[(*help)->i];
+	while ((*help)->count[(*help)->i]-- > 0)
+		command_p(a, b, &(*help)->commands, "pa\n\0");
+	(*help)->count[(*help)->i] = 0;
+	(*help)->i--;
+	return (0);
+}
+
 int			is_sorted(t_stack *a, int count)
 {
 	int i;
@@ -118,6 +83,8 @@ void		put_stack(int argc, char *argv[], t_stack **a, t_stack **b)
 	i = 1;
 	while (i < argc)
 	{
+		if (*argv[i] == '\0')
+			error(a, NULL, NULL);
 		num = put_number(a, argv[i]);
 		if (exist(*b, num))
 			error(a, b, NULL);

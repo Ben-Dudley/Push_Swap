@@ -6,7 +6,7 @@
 #    By: bdudley <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 23:17:28 by bdudley           #+#    #+#              #
-#    Updated: 2019/07/27 21:01:14 by bdudley          ###   ########.fr        #
+#    Updated: 2019/07/28 18:14:02 by bdudley          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@ NAME_C = checker
 FLAGS = -Wall -Wextra -Werror
 INC = ./inc
 INC_2 = ./libft
-SRCS = ./src/commands.c ./src/combine_commands.c ./src/helper.c ./src/stack.c
+SRCS = ./src/commands.c ./src/clear.c ./src/helper.c ./src/stack.c
 SRCS_P = ./src/push_swap.c ./src/sort.c ./src/quicksort.c ./src/print_command.c
-SRCS_C = ./src/checker.c
+SRCS_C = ./src/checker.c ./src/combine_commands.c
 OBJS = $(SRCS:.c=.o)
 OBJS_P = $(SRCS_P:.c=.o)
 OBJS_C = $(SRCS_C:.c=.o)

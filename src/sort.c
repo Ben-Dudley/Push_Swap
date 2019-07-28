@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 17:35:29 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/28 12:24:42 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/28 20:23:25 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void	small_sort(t_stack **a, t_stack **b, t_helper **help)
 	{
 		if ((*help)->count[(*help)->i] == 3)
 			enumeration_b(a, b, help);
-		else if (!is_sorted(*b, (*help)->count[(*help)->i]))
+		else if (!is_sorted(*b, (*help)->count[(*help)->i]) &&
+				(*help)->count[(*help)->i] > 1)
 			command_s(*b, &(*help)->commands, "sb\n\0");
 		(*help)->sorted_count += (*help)->count[(*help)->i];
 		while ((*help)->count[(*help)->i]-- > 0)
@@ -94,20 +95,16 @@ void	small_sort(t_stack **a, t_stack **b, t_helper **help)
 
 int		get_pivot(t_stack *a, int count)
 {
-	int e_medium;
-	int e_last;
-	int	e_first;
+	long	summ;
+	int		i;
 
-	e_first = a->number;
-	e_last = get_element(a, count);
-	e_medium = get_element(a, count / 2);
-	if (e_first > e_last)
+	i = 0;
+	summ = 0;
+	while (i < count)
 	{
-		if (e_first < e_medium)
-			return (e_first);
-		return (e_last > e_medium ? e_last : e_medium);
+		summ += a->number;
+		a = a->next;
+		i++;
 	}
-	if (e_last < e_medium)
-		return (e_last);
-	return (e_first > e_medium ? e_first : e_medium);
+	return  (count == 0 ? 0 : summ / count);
 }

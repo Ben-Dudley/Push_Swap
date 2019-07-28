@@ -15,27 +15,27 @@
 static void		check_command(t_stack **a, t_stack **b, char *command)
 {
 	if (ft_strcmp("ra", command) == 0)
-		command_r(a);
+		command_r(a, NULL, NULL);
 	else if (ft_strcmp("rb", command) == 0)
-		command_r(b);
+		command_r(b, NULL, NULL);
 	else if (ft_strcmp("rr", command) == 0)
-		command_r_r(a, b);
+		command_r_r(a, b, NULL, NULL);
 	else if (ft_strcmp("pa", command) == 0)
-		command_p(a, b);
+		command_p(a, b, NULL, NULL);
 	else if (ft_strcmp("pb", command) == 0)
-		command_p(b, a);
+		command_p(b, a, NULL, NULL);
 	else if (ft_strcmp("rra", command) == 0)
-		command_rr(a);
+		command_rr(a, NULL, NULL);
 	else if (ft_strcmp("rrb", command) == 0)
-		command_rr(b);
+		command_rr(b, NULL, NULL);
 	else if (ft_strcmp("rrr", command) == 0)
-		command_rrr(a, b);
+		command_rrr(a, b, NULL, NULL);
 	else if (ft_strcmp("sa", command) == 0)
-		command_s(*a);
+		command_s(*a, NULL, NULL);
 	else if (ft_strcmp("sb", command) == 0)
-		command_s(*b);
+		command_s(*b, NULL, NULL);
 	else if (ft_strcmp("ss", command) == 0)
-		command_ss(a, b);
+		command_ss(a, b, NULL, NULL);
 	else
 		error(a, b, NULL);
 }

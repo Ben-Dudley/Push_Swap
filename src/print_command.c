@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 13:56:47 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/28 14:33:01 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/28 14:50:18 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ static int		reverse(const char *content, const char *content_next)
 		&& ft_strcmp(content_next, "rra\n") == 0) ||
 			(ft_strcmp(content, "rb\n") == 0
 		&& ft_strcmp(content_next, "rrb\n") == 0) ||
+			(ft_strcmp(content, "pa\n") == 0
+		&& ft_strcmp(content_next, "pb\n") == 0) ||
+			(ft_strcmp(content, "pb\n") == 0
+		&& ft_strcmp(content_next, "pa\n") == 0) ||
 			(ft_strcmp(content, "rrb\n") == 0
 		&& ft_strcmp(content_next, "rb\n") == 0))
 		return (1);
