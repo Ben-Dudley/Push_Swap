@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 13:56:47 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/27 21:46:23 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/28 14:33:01 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ static int		merge(const char *content,
 	|| (!ft_strcmp(content, "sb\n") && !ft_strcmp(content_next, "sa\n")))
 	{
 		free((*ptr)->content);
-		(*ptr)->content = ft_strdup("rr\n\0");
+		(*ptr)->content = ft_strdup("ss\n\0");
 	}
-	else if (!(ft_strcmp(content, "rb\n") && !ft_strcmp(content_next, "ra\n"))
+	else if ((!ft_strcmp(content, "rb\n") && !ft_strcmp(content_next, "ra\n"))
 	|| (!ft_strcmp(content, "ra\n") && !ft_strcmp(content_next, "rb\n")))
 	{
 		free((*ptr)->content);
-		(*ptr)->content = ft_strdup("ss\n\0");
+		(*ptr)->content = ft_strdup("rr\n\0");
 	}
 	else
 		return (0);
@@ -89,21 +89,21 @@ static void		rewrite_merge_operation(t_list *commands)
 	{
 		prev = commands;
 		p = commands->next;
-		while (p && ft_strcmp((const char *)p->content, "pa\n") &&
-			   ft_strcmp((const char *)p->content, "pb\n"))
-		{
-			if (merge((const char *)commands->content, (const char *)p->content, &commands))
+		if (ft_strcmp((const char *)commands->content, "pa\n") &&
+			ft_strcmp((const char *)commands->content, "pb\n"))
+			while (p && ft_strcmp((const char *)p->content, "pa\n") &&
+						ft_strcmp((const char *)p->content, "pb\n"))
 			{
-				prev->next = p->next;
-				delete_content(&p);
-				break ;
-			}
-			else
-			{
+				if (merge((const char *)commands->content,
+						(const char *)p->content, &commands))
+				{
+					prev->next = p->next;
+					delete_content(&p);
+					break ;
+				}
 				prev = p;
 				p = p->next;
 			}
-		}
 		commands = commands->next;
 	}
 }

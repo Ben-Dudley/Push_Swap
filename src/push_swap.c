@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 		help->max_count = argc - 1;
 		help->count_a = argc - 1;
 		help->sorted_count = 0;
-		help->i = 0;
+		help->i = -1;
 		if (argc - 1 <= 3)
 			small_sort(&a, &b, &help);
 		else

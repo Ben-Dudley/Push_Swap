@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 17:35:29 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/27 23:05:58 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/28 12:24:42 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	small_sort(t_stack **a, t_stack **b, t_helper **help)
 		(*help)->sorted_count += (*help)->count[(*help)->i];
 		while ((*help)->count[(*help)->i]-- > 0)
 			command_p(a, b, &(*help)->commands, "pa\n\0");
-		(*help)->i = (*help)->i == 0 ? 0 : (*help)->i - 1;
 		(*help)->count[(*help)->i] = 0;
+		(*help)->i--;
 	}
 }
 

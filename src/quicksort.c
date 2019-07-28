@@ -76,19 +76,16 @@ void		sort(t_stack **a, t_stack **b, t_helper **help)
 			small_sort(a, b, help);
 		else if ((*help)->count_a == 0)
 		{
-			(*help)->i = (*help)->i == 0 ? (*help)->i : (*help)->i--;
 			(*help)->count_a = (*help)->count[(*help)->i] - sort_b(a, b, help);
 			(*help)->count[(*help)->i] -= (*help)->count_a;
-			(*help)->i++;
-
 		}
 		else if ((*help)->count_a < 4)
 			small_sort(a, b, help);
 		else
 		{
+			(*help)->i++;
 			(*help)->count[(*help)->i] = (*help)->count_a - sort_a(a, b, help);
 			(*help)->count_a -= (*help)->count[(*help)->i];
-			(*help)->i++;
 		}
 	}
 }
