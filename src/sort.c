@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 17:35:29 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/28 20:23:25 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/31 17:01:54 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	small_sort(t_stack **a, t_stack **b, t_helper **help)
 	}
 	if (*b && (*help)->count[(*help)->i] < 4)
 	{
+		if ((*help)->count_b)
+			rev_b(b, help);
 		if ((*help)->count[(*help)->i] == 3)
 			enumeration_b(a, b, help);
 		else if (!is_sorted(*b, (*help)->count[(*help)->i]) &&
@@ -107,4 +109,11 @@ int		get_pivot(t_stack *a, int count)
 		i++;
 	}
 	return  (count == 0 ? 0 : summ / count);
+}
+
+void	rev_b(t_stack **b, t_helper **help)
+{
+		while ((*help)->count_b--)
+			command_rr(b, &(*help)->commands, "rrb\n\0");
+		(*help)->count_b = 0;
 }

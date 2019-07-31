@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 13:56:47 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/28 14:50:18 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/31 17:24:14 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ static void		rewrite_merge_operation(t_list *commands)
 	t_list *p;
 	t_list *prev;
 
+	prev = commands;
 	while (commands != NULL && commands->next != NULL)
 	{
-		prev = commands;
 		p = commands->next;
 		if (ft_strcmp((const char *)commands->content, "pa\n") &&
 			ft_strcmp((const char *)commands->content, "pb\n"))
@@ -99,15 +99,15 @@ static void		rewrite_merge_operation(t_list *commands)
 						ft_strcmp((const char *)p->content, "pb\n"))
 			{
 				if (merge((const char *)commands->content,
-						(const char *)p->content, &commands))
+						(const char *)p->content, &p))
 				{
-					prev->next = p->next;
-					delete_content(&p);
-					break ;
+					prev->next = commands->next;
+					delete_content(&commands);
+					commands = prev;
 				}
-				prev = p;
 				p = p->next;
 			}
+		prev = commands;
 		commands = commands->next;
 	}
 }

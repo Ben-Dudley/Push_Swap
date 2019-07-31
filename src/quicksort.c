@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 13:04:12 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/30 18:11:28 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/31 17:01:44 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ int			rev_sort_b(t_stack **a, t_stack **b, t_helper **help)
 				command_p(a, b, &(*help)->commands, "pa\n\0");
 		}
 	}
-	else
-		while (i++ < (*help)->count_b && (*help)->i != 0)
-			command_rr(b, &(*help)->commands, "rrb\n\0");
+//	else
+//		while (i++ < (*help)->count_b && (*help)->i != 0)
+//			command_rr(b, &(*help)->commands, "rrb\n\0");
 	(*help)->count_b = 0;
 	return (i);
 }
@@ -108,15 +108,18 @@ int			sort_b(t_stack **a, t_stack **b, t_helper **help)
 		pivot = get_pivot(*b, (*help)->count[(*help)->i]);
 		count_b = 0;
 		c_count = (*help)->count[(*help)->i];
-		while (c_count > 0) {
-			if ((*b)->number < pivot) {
+		while (c_count-- > 0)
+		{
+			if ((*b)->number < pivot)
+			{
 				count_b++;
 				command_r(b, &(*help)->commands, "rb\n\0");
 			} else
 				command_p(a, b, &(*help)->commands, "pa\n\0");
-			c_count--;
 		}
-		(*help)->count_b = count_b;
+		(*help)->count_b = ((*help)->i > 0) ? count_b : 0;
+		if (count_b > 4)
+			rev_b(b, help);
 	}
 	else
 		count_b = rev_sort_b(a, b, help);
@@ -133,19 +136,22 @@ void		sort(t_stack **a, t_stack **b, t_helper **help)
 			small_sort(a, b, help);
 		else if ((*help)->count_a == 0 && is_sorted_b(a, b, help))
 		{
-			(*help)->count_a = (*help)->count[(*help)->i] - sort_b(a, b, help);
+			current = sort_b(a, b, help);
+			(*help)->count_a = (*help)->count[(*help)->i] - current;
 			(*help)->count[(*help)->i] -= (*help)->count_a;
 		}
-		else if ((*help)->count_a < 4)
-			small_sort(a, b, help);
-		else if ((*help)->count_a > 3 && !is_sorted(*a, (*help)->count_a))
+		else if (!is_sorted(*a, (*help)->count_a))
 		{
 			(*help)->sorted_count += (*help)->count_a;
 			(*help)->count_a = 0;
 		}
+		else if ((*help)->count_a < 4)
+			small_sort(a, b, help);
 		else
 			{
 				(*help)->i++;
+				if ((*help)->count_b)
+					rev_b(b, help);
 				current = sort_a(a, b, help);
 				(*help)->count[(*help)->i] = (*help)->count_a - current;
 				(*help)->count_a -= (*help)->count[(*help)->i];

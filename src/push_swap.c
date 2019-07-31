@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:15:52 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/30 16:04:49 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/31 17:15:31 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		main(int argc, char *argv[])
 		else
 			sort(&a, &b, &help);
 		print_command(help->commands);
+	//	print_stack(a, b);
 		clear(&a, &b, &help);
 	}
 	return (0);
