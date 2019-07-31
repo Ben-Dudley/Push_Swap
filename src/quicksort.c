@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 13:04:12 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/31 18:23:28 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/07/31 20:30:55 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int			rev_sort_b(t_stack **a, t_stack **b, t_helper **help)
 		pivot = get_pivot(ptr, (*help)->count_b);
 		while ((*help)->count_b-- > 0)
 		{
-			command_rr(a, &(*help)->commands, "rrb\n\0");
+			command_rr(b, &(*help)->commands, "rrb\n\0");
 			if ((*b)->number < pivot)
 				i++;
 			else
@@ -129,6 +129,7 @@ void		sort(t_stack **a, t_stack **b, t_helper **help)
 
 	while (is_sorted(*a, (*help)->max_count))
 	{
+		print_stack(*a, *b);
 		if ((*help)->count_a == 0 && (*help)->count[(*help)->i] < 4)
 			small_sort(a, b, help);
 		else if ((*help)->count_a == 0 && is_sorted_b(a, b, help))
