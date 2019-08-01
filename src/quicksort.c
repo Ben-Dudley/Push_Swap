@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 13:04:12 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/31 20:30:55 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/08/01 20:56:59 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,36 +71,39 @@ int			rev_sort_b(t_stack **a, t_stack **b, t_helper **help)
 	t_stack *ptr;
 	int		i;
 	int		pivot;
+	int		c_count;
 
 	ptr = *b;
 	i = 0;
-	if ((*help)->count_b > 3 && (*help)->i != 0)
-	{
-		pivot = (*help)->max_count - (*help)->sorted_count -
-				(*help)->count_a - (*help)->count[(*help)->i];
-		while (pivot--)
+	if ((*help)->count[(*help)->i] < -3) {
+		c_count = (*help)->max_count - (*help)->sorted_count -
+				  (*help)->count_a + (*help)->count[(*help)->i];
+		while (c_count--)
 			ptr = ptr->next;
-		pivot = get_pivot(ptr, (*help)->count_b);
-		while ((*help)->count_b-- > 0)
-		{
+		pivot = get_pivot(ptr, -(*help)->count[(*help)->i]);
+		c_count = (-1) * ((*help)->count[(*help)->i]);
+		while (c_count-- > 0) {
 			command_rr(b, &(*help)->commands, "rrb\n\0");
 			if ((*b)->number < pivot)
 				i++;
 			else
 				command_p(a, b, &(*help)->commands, "pa\n\0");
 		}
+		(*help)->count_a = (-1) * (*help)->count[(*help)->i] - i;
+		(*help)->count[(*help)->i] = i;
 	}
-	(*help)->count_b = 0;
+	else
+		small_sort(a, b, help);
 	return (i);
 }
 
-int			sort_b(t_stack **a, t_stack **b, t_helper **help)
+void			sort_b(t_stack **a, t_stack **b, t_helper **help)
 {
 	int	c_count;
 	int count_b;
 	int pivot;
 
-	if ((*help)->count_b == 0 || (*help)->i == 0)
+	if ((*help)->count[(*help)->i] > 0)
 	{
 		pivot = get_pivot(*b, (*help)->count[(*help)->i]);
 		count_b = 0;
@@ -114,13 +117,11 @@ int			sort_b(t_stack **a, t_stack **b, t_helper **help)
 			} else
 				command_p(a, b, &(*help)->commands, "pa\n\0");
 		}
-		(*help)->count_b = ((*help)->i > 0) ? count_b : 0;
-		if (count_b > 4)
-			rev_b(b, help);
+		(*help)->count_a = (*help)->count[(*help)->i] - count_b;
+		(*help)->count[(*help)->i] = ((*help)->i > 0) ? -count_b : count_b;
 	}
 	else
 		count_b = rev_sort_b(a, b, help);
-	return (count_b);
 }
 
 void		sort(t_stack **a, t_stack **b, t_helper **help)
@@ -129,14 +130,23 @@ void		sort(t_stack **a, t_stack **b, t_helper **help)
 
 	while (is_sorted(*a, (*help)->max_count))
 	{
-		print_stack(*a, *b);
-		if ((*help)->count_a == 0 && (*help)->count[(*help)->i] < 4)
-			small_sort(a, b, help);
-		else if ((*help)->count_a == 0 && is_sorted_b(a, b, help))
+		if ((*help)->count_a == 0 && (*b) && (*a)->number == (*b)->number + 1)
+			while  ((*a) && (*b) && ((*help)->count[(*help)->i] > 0) && ((*a)->number == (*b)->number + 1))
 		{
-			current = sort_b(a, b, help);
-			(*help)->count_a = (*help)->count[(*help)->i] - current;
-			(*help)->count[(*help)->i] -= (*help)->count_a;
+			command_p(a, b, &(*help)->commands, "pa\n\0");
+			(*help)->count[(*help)->i]--;
+			if ((*help)->count[(*help)->i] == 0)
+				(*help)->i--;
+			(*help)->sorted_count++;
+		}
+		if ((*help)->count_a == 0 && (*help)->count[(*help)->i] < 4
+		&& (*help)->count[(*help)->i] > 0)
+			small_sort(a, b, help);
+		else if ((*help)->count_a == 0)
+		{
+			if ((*help)->count[(*help)->i] > 0)
+				is_sorted_b(a, b, help);
+			sort_b(a, b, help);
 		}
 		else if (!is_sorted(*a, (*help)->count_a))
 		{
@@ -146,13 +156,11 @@ void		sort(t_stack **a, t_stack **b, t_helper **help)
 		else if ((*help)->count_a < 4)
 			small_sort(a, b, help);
 		else
-			{
+		{
 				(*help)->i++;
-				if ((*help)->count_b)
-					rev_b(b, help);
 				current = sort_a(a, b, help);
 				(*help)->count[(*help)->i] = (*help)->count_a - current;
 				(*help)->count_a -= (*help)->count[(*help)->i];
-			}
+		}
 	}
 }
