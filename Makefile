@@ -6,13 +6,13 @@
 #    By: bdudley <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 23:17:28 by bdudley           #+#    #+#              #
-#    Updated: 2019/07/31 12:52:23 by bdudley          ###   ########.fr        #
+#    Updated: 2019/08/02 18:54:57 by bdudley          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_P = push_swap
 NAME_C = checker
-FLAGS = -Wall -Wextra -Werror
+FLAGS = # -Wall -Wextra -Werror -g
 INC = ./inc
 INC_2 = ./libft
 SRCS = ./src/resource.c ./src/commands.c ./src/clear.c ./src/helper.c ./src/stack.c

@@ -6,13 +6,13 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 17:35:29 by bdudley           #+#    #+#             */
-/*   Updated: 2019/08/01 20:42:58 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/08/02 14:57:06 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	enumeration_a(t_stack **a, t_stack **b, t_helper **help)
+void	enumeration_a(t_stack **a, t_helper **help)
 {
 	int e1;
 	int e2;
@@ -25,16 +25,16 @@ void	enumeration_a(t_stack **a, t_stack **b, t_helper **help)
 		return ;
 	else if (e1 < e2 && e2 > e3)
 	{
-		command_p(b, a, &(*help)->commands, "pb\n\0");
+		command_r(a, &(*help)->commands, "ra\n\0");
 		command_s(*a, &(*help)->commands, "sa\n\0");
-		command_p(a, b, &(*help)->commands, "pa\n\0");
+		command_rr(a, &(*help)->commands, "rra\n\0");
 	}
 	else if (e1 > e2 && e1 > e3)
 	{
 		command_s(*a, &(*help)->commands, "sa\n\0");
-		command_p(b, a, &(*help)->commands, "pb\n\0");
+		command_r(a, &(*help)->commands, "ra\n\0");
 		command_s(*a, &(*help)->commands, "sa\n\0");
-		command_p(a, b, &(*help)->commands, "pa\n\0");
+		command_rr(a, &(*help)->commands, "rra\n\0");
 	}
 	if ((e1 < e2 && e1 > e3) || (e1 > e2 && e1 < e3) || (e1 > e2 && e2 > e3))
 		command_s(*a, &(*help)->commands, "sa\n\0");
@@ -75,7 +75,7 @@ void	small_sort(t_stack **a, t_stack **b, t_helper **help)
 
 		//printf("small a\n");
 		if ((*help)->count_a == 3)
-			enumeration_a(a, b, help);
+			enumeration_a(a, help);
 		else if (is_sorted(*a, (*help)->count_a))
 			command_s(*a, &(*help)->commands, "sa\n\0");
 		(*help)->sorted_count += (*help)->count_a;

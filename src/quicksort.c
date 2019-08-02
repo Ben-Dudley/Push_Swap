@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 13:04:12 by bdudley           #+#    #+#             */
-/*   Updated: 2019/08/01 20:56:59 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/08/02 14:12:15 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ void		sort(t_stack **a, t_stack **b, t_helper **help)
 			(*help)->sorted_count += (*help)->count_a;
 			(*help)->count_a = 0;
 		}
+		else if ((*help)->sorted_count == 0 && (*help)->count_a < 4)
+			first_small_sort(a, help);
 		else if ((*help)->count_a < 4)
 			small_sort(a, b, help);
 		else
