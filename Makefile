@@ -6,17 +6,17 @@
 #    By: bdudley <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/17 23:17:28 by bdudley           #+#    #+#              #
-#    Updated: 2019/08/02 18:54:57 by bdudley          ###   ########.fr        #
+#    Updated: 2019/08/04 20:10:47 by bdudley          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_P = push_swap
 NAME_C = checker
-FLAGS = # -Wall -Wextra -Werror -g
+FLAGS = -g -Wall -Wextra -Werror
 INC = ./inc
 INC_2 = ./libft
-SRCS = ./src/resource.c ./src/commands.c ./src/clear.c ./src/helper.c ./src/stack.c
-SRCS_P = ./src/push_swap.c ./src/sort.c ./src/quicksort.c ./src/print_command.c
+SRCS = ./src/commands.c ./src/clear.c ./src/helper.c ./src/stack.c
+SRCS_P = ./src/push_swap.c ./src/sort.c ./src/quicksort.c ./src/print_command.c ./src/merge_operation.c ./src/small_sort_reverse_b.c
 SRCS_C = ./src/checker.c ./src/combine_commands.c
 OBJS = $(SRCS:.c=.o)
 OBJS_P = $(SRCS_P:.c=.o)

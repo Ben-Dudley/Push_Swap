@@ -6,13 +6,13 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:15:52 by bdudley           #+#    #+#             */
-/*   Updated: 2019/08/02 15:01:13 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/08/04 15:08:08 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		*initialize(int count)
+static int	*initialize(int count)
 {
 	int	*mass;
 	int	i;
@@ -27,7 +27,7 @@ int		*initialize(int count)
 	return (mass);
 }
 
-int		main(int argc, char *argv[])
+int			main(int argc, char *argv[])
 {
 	t_helper	*help;
 	t_stack		*a;
@@ -45,14 +45,12 @@ int		main(int argc, char *argv[])
 		help->max_count = argc - 1;
 		help->count_a = argc - 1;
 		help->sorted_count = 0;
-		help->count_b = 0;
 		help->i = -1;
 		if (argc - 1 <= 3)
-			small_sort(&a, &b, &help);
+			first_small_sort(&a, &help);
 		else
 			sort(&a, &b, &help);
 		print_command(help->commands);
-	//	print_stack(a, b);
 		clear(&a, &b, &help);
 	}
 	return (0);

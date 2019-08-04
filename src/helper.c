@@ -40,25 +40,23 @@ int			put_number(t_stack **a, char *str)
 	return (number);
 }
 
-int			is_sorted_b(t_stack **a, t_stack **b, t_helper **help)
+int			get_pivot(t_stack *a, int count)
 {
-	t_stack		*ptr;
-	int			i;
+	long	summ;
+	int		i;
+	int		result;
 
 	i = 0;
-	ptr = *a;
-	while (i++ < (*help)->count[(*help)->i])
+	summ = 0;
+	while (i < count)
 	{
-		if (ptr->next == NULL || ptr->number < ptr->next->number)
-			return (1);
-		ptr = ptr->next;
+		summ += a->number;
+		a = a->next;
+		i++;
 	}
-	(*help)->sorted_count += (*help)->count[(*help)->i];
-	while ((*help)->count[(*help)->i]-- > 0)
-		command_p(a, b, &(*help)->commands, "pa\n\0");
-	(*help)->count[(*help)->i] = 0;
-	(*help)->i--;
-	return (0);
+	result = count == 0 ? 0 : summ / count;
+	result = (summ % count != 0) ? result + 1 : result;
+	return (result);
 }
 
 int			is_sorted(t_stack *a, int count)
