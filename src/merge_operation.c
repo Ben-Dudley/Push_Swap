@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 16:30:19 by bdudley           #+#    #+#             */
-/*   Updated: 2019/08/04 17:34:39 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/08/05 19:46:33 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void			find_merge(int flag_1, t_list **commands,
 	flag = 0;
 	flag = (get_flag((const char *)(*p)->content) - flag == 0) ?
 			flag : get_flag((const char *)(*p)->content) + flag;
-	while (p && (flag < 3))
+	while ((*p) && (flag < 3))
 	{
 		if (flag == flag_1)
 			rewrite_in_beginning(commands, p, &pr);

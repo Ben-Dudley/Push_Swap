@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 17:35:29 by bdudley           #+#    #+#             */
-/*   Updated: 2019/08/04 20:03:23 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/08/05 19:30:30 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void		first_small_sort(t_stack **a, t_helper **help)
 	int e3;
 
 	e1 = (*a) ? (*a)->number : 0;
-	e2 = (*a)->next ? (*a)->next->number : 0;
-	e3 = (*a)->next->next ? (*a)->next->next->number : 0;
+	e2 = (*help)->count_a > 1 ? (*a)->next->number : 0;
+	e3 = (*help)->count_a > 2 ? (*a)->next->next->number : 0;
 	if ((*help)->count_a == 3 && ((e1 > e2 && e1 > e3) || (e3 > e1 && e3 < e2)))
 		command_r(a, &(*help)->commands, "ra\n\0");
 	if ((*help)->count_a == 2 || (e1 > e2 && e1 < e3) ||

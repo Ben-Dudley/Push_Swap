@@ -82,7 +82,8 @@ void			print_command(t_list *commands)
 	rewrite_merge_operation(commands);
 	while (commands != NULL)
 	{
-		printf("%s", (char *)commands->content);
+		write(1, (char *)commands->content,
+				ft_strlen((const char *)commands->content));
 		commands = commands->next;
 	}
 }
