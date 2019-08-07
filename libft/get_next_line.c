@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 21:06:39 by bdudley           #+#    #+#             */
-/*   Updated: 2019/08/07 13:11:30 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/08/07 19:41:35 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int			get_next_line(const int fd, char **line)
 	{
 		result = get_line(&line, &(copy->content), '\0');
 		ft_delete(&my_list, &copy);
-		return (result);
+		return (result == 1 ? -1 : 0);
 	}
 	return (-1);
 }

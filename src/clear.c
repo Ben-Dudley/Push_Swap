@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 17:06:24 by bdudley           #+#    #+#             */
-/*   Updated: 2019/08/07 11:46:42 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/08/07 17:01:04 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ void		clear(t_stack **a, t_stack **b, t_helper **help)
 void		error(t_stack **a, t_stack **b, t_helper **help)
 {
 	clear(a, b, help);
-	write (0, "Error\n", 6);
+	write (1, "Error\n", 6);
 	exit(3);
 }

@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:23:25 by bdudley           #+#    #+#             */
-/*   Updated: 2019/08/07 13:21:46 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/08/07 19:17:21 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,20 @@ int				main(int argc, char *argv[])
 	t_stack	*a;
 	t_stack	*b;
 	char	*command;
+	int		result;
 
 	b = NULL;
 	a = NULL;
 	if (argc > 1)
 	{
-		command = NULL;
 		put_stack(argc, argv, &a, &b);
-		while (get_next_line(0, &command) > 0)
+		while ((result = get_next_line(0, &command)) > 0)
 		{
-			//pa\n
 			check_command(&a, &b, command);
 			free(command);
-			command = NULL;
 		}
+		if (result < 0)
+			error(&a, &b, NULL);
 		free(command);
 		if (!is_sorted(a, argc - 1) && b == NULL)
 			write(1, "OK\n", 3);

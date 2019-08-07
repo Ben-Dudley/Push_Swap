@@ -6,7 +6,7 @@
 /*   By: bdudley <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 22:17:10 by bdudley           #+#    #+#             */
-/*   Updated: 2019/07/28 18:37:19 by bdudley          ###   ########.fr       */
+/*   Updated: 2019/08/07 19:01:41 by bdudley          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ int			put_number(t_stack **a, char *str)
 
 	number = 0;
 	flag = 1;
-	if (*str == '-')
+	if (*str == '-' || *str == '+')
 	{
-		flag = -1;
+		flag = (*str == '-') ? -1 : 1;
 		str++;
 	}
+	if (*str == '\0')
+		error(a, NULL, NULL);
 	off = flag == 1 ? INT_MAX : INT_MIN;
 	lim = flag * (off % 10);
 	off /= flag * 10;
